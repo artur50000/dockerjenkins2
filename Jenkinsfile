@@ -17,19 +17,16 @@ pipeline{
         stage ("build"){
             steps {
                sh 'mvn package'
-               sh 'service docker start'
-               sh 'service docker status'
-               sh 'docker ps'
-               
+                              
           }
         }
         
         stage ("deploy"){
             steps {
                sh 'docker run --rm jenkinstest:1 cat /home/ubuntu/Dockerfile > Dockerfile'
-               sh 'docker build -t artur50000/tomcat:1 . '
+               sh 'docker build -t artur50000/tomcat:2 . '
                sh 'docker login -u="artur50000" -p="$PASS"' 
-               sh 'docker push artur50000/tomcat:1'
+               sh 'docker push artur50000/tomcat:2'
                 
           }
         }
@@ -38,3 +35,4 @@ pipeline{
     
   
 }
+
